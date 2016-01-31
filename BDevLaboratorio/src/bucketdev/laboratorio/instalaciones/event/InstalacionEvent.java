@@ -16,6 +16,7 @@ public class InstalacionEvent extends Event {
 	public static final EventType<InstalacionEvent> RENOVAR = new EventType<InstalacionEvent>(Event.ANY, "RENOVAR");
 	public static final EventType<InstalacionEvent> RENOVAR_INSTALACION = new EventType<InstalacionEvent>(Event.ANY, "RENOVAR_INSTALACION");
 	public static final EventType<InstalacionEvent> FILTRAR_INSTALACION = new EventType<InstalacionEvent>(Event.ANY, "FILTRAR_INSTALACION");
+	public static final EventType<InstalacionEvent> EXPORTAR_EXCEL = new EventType<InstalacionEvent>(Event.ANY, "EXPORTAR_EXCEL");
 
 	public InstalacionEvent(EventType<? extends Event> eventType) {
 		super(eventType);

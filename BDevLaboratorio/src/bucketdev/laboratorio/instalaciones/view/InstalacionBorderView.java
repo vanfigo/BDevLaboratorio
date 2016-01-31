@@ -28,7 +28,7 @@ import lombok.Getter;
 public class InstalacionBorderView extends ModuloBorderView {
 	
 	private InstalacionFiltroGridPane filtroGridPane;
-	private InstalacionTableView tableView;
+	private @Getter InstalacionTableView tableView;
 	private @Getter NumberField nfDiasCaducidad;
 	
 	private InstalacionMensajePopUp mensajeInstalacion;
@@ -37,6 +37,7 @@ public class InstalacionBorderView extends ModuloBorderView {
 	private InstalacionRenovarGridPane instalacionRenovarGridPane;
 	
 	private Button btRenovar;
+	private Button btExportarExcel;
 	
 	public InstalacionBorderView(ModuloBean _moduloBean) {
 		super(_moduloBean);
@@ -67,6 +68,15 @@ public class InstalacionBorderView extends ModuloBorderView {
 			@Override
 			public void handle(ActionEvent event) {
 				fireEvent(new InstalacionEvent(InstalacionEvent.RENOVAR));
+			}
+		});
+		
+		btExportarExcel.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				fireEvent(new InstalacionEvent(InstalacionEvent.EXPORTAR_EXCEL));
+				
 			}
 		});
 	}
@@ -126,8 +136,10 @@ public class InstalacionBorderView extends ModuloBorderView {
 	@Override
 	public void validarPermisos() {
 		btRenovar = new Button("Renovar", BDev.creaImagen("boton.img.renovar"));
+		btExportarExcel = new Button("Exportar", BDev.creaImagen("boton.img.excel"));
 		
 		List<Button> listaBotones = new ArrayList<>();
+		listaBotones.add(btExportarExcel);
 		for(AccionBean accion : getModuloBean().getListaAcciones()){
 			if(accion.getNombre().equals("agregar_instalaciones")){
 				listaBotones.add(getBtAgregar());
@@ -137,7 +149,9 @@ public class InstalacionBorderView extends ModuloBorderView {
 				listaBotones.add(getBtEliminar());
 			} else if(accion.getNombre().equals("renovar_instalaciones")){
 				listaBotones.add(btRenovar);
-			}
+			} //else if(accion.getNombre().equals("excel_instalaciones")){
+//				listaBotones.add(btExportarExcel);
+//			}
 		}
 		
 		getCajaBotones().getChildren().addAll(0, listaBotones);

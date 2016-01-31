@@ -3,7 +3,6 @@ package bucketdev.laboratorio.instalaciones.view.pane;
 import bucketdev.laboratorio.bean.ConsumibleBean;
 import bucketdev.laboratorio.bean.EquipoBean;
 import bucketdev.laboratorio.bean.InstalacionBean;
-import bucketdev.laboratorio.bean.UbicacionBean;
 import bucketdev.laboratorio.busqueda.event.BusquedaCatalogoEvent;
 import bucketdev.laboratorio.busqueda.event.ElementoCatalogoEvent;
 import bucketdev.laboratorio.busqueda.view.pane.BusquedaCatalogo;
