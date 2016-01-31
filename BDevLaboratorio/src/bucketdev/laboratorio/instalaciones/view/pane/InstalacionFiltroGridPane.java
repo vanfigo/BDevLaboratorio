@@ -3,11 +3,13 @@ package bucketdev.laboratorio.instalaciones.view.pane;
 import bucketdev.laboratorio.BDev;
 import bucketdev.laboratorio.bean.EquipoBean;
 import bucketdev.laboratorio.bean.InstalacionFiltroBean;
+import bucketdev.laboratorio.busqueda.event.BusquedaCatalogoEvent;
+import bucketdev.laboratorio.busqueda.event.ElementoCatalogoEvent;
+import bucketdev.laboratorio.busqueda.view.pane.BusquedaCatalogo;
 import bucketdev.laboratorio.consumibles.view.ConsumibleCombo;
-import bucketdev.laboratorio.equipos.view.EquipoCombo;
+import bucketdev.laboratorio.equipos.view.EquipoElementoCatalogoMensajePopUp;
+import bucketdev.laboratorio.equipos.view.pane.EquipoElementoCatalogoBorder;
 import bucketdev.laboratorio.instalaciones.event.InstalacionEvent;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -17,15 +19,18 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
 public class InstalacionFiltroGridPane extends GridPane {
-	
-	private EquipoCombo equipoCombo;
+
+	private BusquedaCatalogo<EquipoBean> busquedaEquipo;
 	private ConsumibleCombo consumibleCombo;
 	private CheckBox chPorCaducar;
 	private Button btLimpiar;
 	private Button btFiltrar;
 	
+	private EquipoElementoCatalogoMensajePopUp mensajeEquipo;
+	private EquipoElementoCatalogoBorder equipoCatalogo;
+	
 	public InstalacionFiltroGridPane() {
-		equipoCombo = new EquipoCombo();
+		busquedaEquipo = new BusquedaCatalogo<>();
 		consumibleCombo = new ConsumibleCombo();
 		chPorCaducar = new CheckBox("Por caducar");
 		btFiltrar = new Button("Buscar", BDev.creaImagen("boton.img.buscar"));
@@ -37,8 +42,8 @@ public class InstalacionFiltroGridPane extends GridPane {
 	}
 	
 	public void init() {
-		equipoCombo.setMinWidth(200);
-		equipoCombo.setMaxWidth(200);
+		busquedaEquipo.setMinWidth(200);
+		busquedaEquipo.setMaxWidth(200);
 		consumibleCombo.setMinWidth(200);
 		consumibleCombo.setMaxWidth(200);
 		btFiltrar.getStyleClass().add("info");
@@ -47,7 +52,7 @@ public class InstalacionFiltroGridPane extends GridPane {
 		setPadding(new Insets(10));
 		
 		add(new Label("Equipo:"), 0, 0);
-		add(equipoCombo, 1, 0);
+		add(busquedaEquipo, 1, 0);
 		add(new Label("Consumible:"), 2, 0);
 		add(consumibleCombo, 3, 0);
 		add(chPorCaducar, 4, 0);
@@ -55,13 +60,22 @@ public class InstalacionFiltroGridPane extends GridPane {
 		add(btFiltrar, 6, 0);
 	}
 	
+	@SuppressWarnings("rawtypes")
 	private void atarEventos() {
-		equipoCombo.valueProperty().addListener(new ChangeListener<EquipoBean>() {
+		
+		busquedaEquipo.addEventHandler(BusquedaCatalogoEvent.SOLICITAR_BUSQUEDA, new EventHandler<BusquedaCatalogoEvent>() {
 
 			@Override
-			public void changed(ObservableValue<? extends EquipoBean> observable, EquipoBean oldValue,
-					EquipoBean newValue) {
-				consumibleCombo.setEquipoBean(newValue);
+			public void handle(BusquedaCatalogoEvent event) {
+				mostrarMensajeEquipo(event.getTextValue());
+			}
+		});
+		
+		busquedaEquipo.addEventHandler(BusquedaCatalogoEvent.VALOR_MODIFICADO, new EventHandler<BusquedaCatalogoEvent>() {
+
+			@Override
+			public void handle(BusquedaCatalogoEvent event) {
+				consumibleCombo.setEquipoBean((EquipoBean) event.getValue());
 			}
 		});
 		
@@ -77,7 +91,7 @@ public class InstalacionFiltroGridPane extends GridPane {
 			
 			@Override
 			public void handle(ActionEvent event) {
-				equipoCombo.setValue(null);
+				busquedaEquipo.clear();
 				consumibleCombo.setValue(null);
 				chPorCaducar.setSelected(false);
 				fireEvent(new InstalacionEvent(InstalacionEvent.FILTRAR_INSTALACION, getValues()));
@@ -85,9 +99,25 @@ public class InstalacionFiltroGridPane extends GridPane {
 		});
 	}
 	
+	@SuppressWarnings("rawtypes")
+	public void mostrarMensajeEquipo(String _textValue) {
+		equipoCatalogo = new EquipoElementoCatalogoBorder(_textValue);
+		mensajeEquipo = new EquipoElementoCatalogoMensajePopUp(equipoCatalogo);
+		mensajeEquipo.show();
+
+		mensajeEquipo.addEventHandler(ElementoCatalogoEvent.ELEMENTO_SELECCIONADO, new EventHandler<ElementoCatalogoEvent>() {
+
+			@Override
+			public void handle(ElementoCatalogoEvent event) {
+				EquipoBean equipoBean = ((EquipoBean) event.getElementoOriginal());
+				busquedaEquipo.setValue(equipoBean);
+			}
+		});
+	}
+	
 	public InstalacionFiltroBean getValues() {
 		InstalacionFiltroBean filtroBean = new InstalacionFiltroBean();
-		filtroBean.setEquipoBean(equipoCombo.getValue());
+		filtroBean.setEquipoBean(busquedaEquipo.getValue());
 		filtroBean.setConsumibleBean(consumibleCombo.getValue());
 		filtroBean.setPorCaducar(chPorCaducar.isSelected());
 		

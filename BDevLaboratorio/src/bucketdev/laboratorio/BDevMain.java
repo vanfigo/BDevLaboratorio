@@ -30,7 +30,6 @@ public class BDevMain extends Application {
 		primaryStage.initStyle(StageStyle.UNDECORATED);
 		primaryStage.getIcons().add(new Image(getClass().getResourceAsStream(BDev.getPropiedad("icono.img"))));
 		primaryStage.setTitle("BDevLaboratorio");
-		primaryStage.show();
 
 		mostrarLogin();
 	}
@@ -38,19 +37,21 @@ public class BDevMain extends Application {
 	@SuppressWarnings("unused")
 	public static void mostrarLogin() {
 		LoginController loginController = new LoginController();
-		primaryStage.centerOnScreen();
 		BDevMain.getPrimaryStage().getScene().getStylesheets()
 				.add(BDevMain.class.getResource(BDev.getPropiedad("genericos.rutaCSS")).toExternalForm());
+		primaryStage.show();
+		primaryStage.centerOnScreen();
 	}
 
 	public static void mostrarMenuPrincipal() {
 		MenuController menuController = new MenuController();
 		menuBorderView = menuController.getView();
 
-		primaryStage.centerOnScreen();
 		BDevMain.getPrimaryStage().getScene().getStylesheets()
 				.add(BDevMain.class.getResource(BDev.getPropiedad("genericos.rutaCSS")).toExternalForm());
 
+		primaryStage.centerOnScreen();
+		
 		BDevMain.mostrarMensaje(
 				String.format("¡Bienvenido %s!", BDev.obtenerNombreUsuario(BDev.getSesionBean().getUsuarioBean())));
 	}

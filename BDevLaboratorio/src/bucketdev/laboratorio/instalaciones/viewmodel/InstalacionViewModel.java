@@ -61,7 +61,6 @@ public class InstalacionViewModel {
 				instalacionBean.setCaducidad(rs.getInt("caducidad"));
 				instalacionBean.setFechaCaducidad(rs.getTimestamp("fecha_creacion"));
 				instalacionBean.setTipoEstatus(BDevTipoEstatus.getTipoEstatusByID(rs.getInt("estatus_id")));
-				instalacionBean.setDiasCaducidad(Integer.valueOf(BDev.getPropiedad("configuracion.caducidad")));
 
 				UbicacionBean ubicacionBean = new UbicacionBean();
 				ubicacionBean.setId(rs.getInt("ubicacion_id"));

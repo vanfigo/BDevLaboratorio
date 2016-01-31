@@ -5,7 +5,6 @@ import bucketdev.laboratorio.BDevMain;
 import bucketdev.laboratorio.bean.ConsumibleBean;
 import bucketdev.laboratorio.bean.ModuloBean;
 import bucketdev.laboratorio.busqueda.event.BusquedaCatalogoEvent;
-import bucketdev.laboratorio.busqueda.event.ElementoCatalogoEvent;
 import bucketdev.laboratorio.consumibles.event.ConsumibleEvent;
 import bucketdev.laboratorio.consumibles.view.ConsumibleBorderView;
 import bucketdev.laboratorio.consumibles.viewmodel.ConsumibleViewModel;
@@ -106,22 +105,6 @@ public class ConsumibleController extends ModuloController {
 			@Override
 			public void handle(BusquedaCatalogoEvent event) {
 				view.mostrarMensajeEquipo(event.getTextValue());
-			}
-		});
-		
-		view.addEventHandler(ElementoCatalogoEvent.SIN_SELECCION, new EventHandler<ElementoCatalogoEvent>() {
-
-			@Override
-			public void handle(ElementoCatalogoEvent event) {
-				BDevMain.mostrarMensaje(BDev.getMensaje("consumibles.equipo.sinseleccion"), BDevTipoMensaje.ALERTA);
-			}
-		});
-		
-		view.addEventHandler(ElementoCatalogoEvent.ELEMENTO_SELECCIONADO, new EventHandler<ElementoCatalogoEvent>() {
-
-			@Override
-			public void handle(ElementoCatalogoEvent event) {
-				System.out.println(event);
 			}
 		});
 	}

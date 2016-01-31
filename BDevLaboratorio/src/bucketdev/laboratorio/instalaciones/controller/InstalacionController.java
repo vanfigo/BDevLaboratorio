@@ -21,10 +21,10 @@ import javafx.scene.control.Label;
 import javafx.util.converter.NumberStringConverter;
 
 public class InstalacionController extends ModuloController {
-	
+
 	private InstalacionBorderView view;
 	private InstalacionViewModel viewModel;
-	
+
 	public InstalacionController(ModuloBean _moduloBean) {
 		view = new InstalacionBorderView(_moduloBean);
 		viewModel = new InstalacionViewModel();
@@ -142,10 +142,14 @@ public class InstalacionController extends ModuloController {
 
 			@Override
 			public void handle(TableViewEvent event) {
+				String numDiasCaducidad = view.getNfDiasCaducidad().getTextValue().isEmpty()
+						? BDev.getPropiedad("configuracion.caducidad") : view.getNfDiasCaducidad().getTextValue();
 				InstalacionTableView tableView = ((InstalacionTableView) event.getTableView());
-				for(InstalacionBean instalacionBean : tableView.getItems()) {
-					view.getNfDiasCaducidad().textProperty().bindBidirectional(instalacionBean.diasCaducidadProperty(), new NumberStringConverter());
+				for (InstalacionBean instalacionBean : tableView.getItems()) {
+					view.getNfDiasCaducidad().textProperty().bindBidirectional(instalacionBean.diasCaducidadProperty(),
+							new NumberStringConverter());
 				}
+				view.getNfDiasCaducidad().setText(numDiasCaducidad);
 			}
 		});
 	}
