@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" name="BDEV">
+
+	<Properties>
+		<Property name="genericosName">
+			C:\\bdevlaboratorio\\log\\genericos.log
+		</Property>
+		<Property name="genericosPattern">
+			C:\\bdevlaboratorio\\log\\genericos-%d{dd-MM-yyyy}-%i.log.gz
+		</Property>
+	</Properties>
+
+	<Appenders>
+		<Console name="STDOUT" target="SYSTEM_OUT">
+			<PatternLayout>
+				<Pattern>%d %p -%c{2} [%C @ %L] %m%n</Pattern>
+			</PatternLayout>
+		</Console>
+
+		<RollingFile name="Genericos" fileName="${genericosName}"
+			filePattern="${genericosPattern}">
+			<PatternLayout>
+				<Pattern>%d %p [%C @ %L] %m%n</Pattern>
+			</PatternLayout>
+			<ThresholdFilter level="WARN"/>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1"
+					modulate="true" />
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+		</RollingFile>
+	</Appenders>
+
+	<Loggers>
+		<Root level="ALL">
+			<AppenderRef ref="STDOUT" />
+		</Root>
+		<Logger name="bdev.genericos" level="ALL">
+			<AppenderRef ref="Genericos" />
+		</Logger>
+	</Loggers>
+
+</Configuration>
