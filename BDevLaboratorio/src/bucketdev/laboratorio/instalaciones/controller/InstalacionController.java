@@ -234,7 +234,7 @@ public class InstalacionController extends ModuloController {
 						sheet.setColumnWidth(1 + columna, arrColumnWidth[columna] * 256);
 					}
 					
-					String file = "C:\\bdevlaboratorio\\Reporte.xlsx";
+					String file = "/Users/rodrigo/git/BDevLaboratorio/Reporte.xlsx";
 					out = new FileOutputStream(file);
 					wb.write(out);
 					BDevMain.mostrarMensaje("El archivo fue creado correctamente", BDevTipoMensaje.CORRECTO);
