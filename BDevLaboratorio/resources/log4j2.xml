@@ -3,10 +3,10 @@
 
 	<Properties>
 		<Property name="genericosName">
-			/Users/rodrigo/git/BDevLaboratorio/log/genericos.log
+			C:\\bdevlaboratorio\\log\\genericos.log
 		</Property>
 		<Property name="genericosPattern">
-			/Users/rodrigo/git/BDevLaboratorio/log/genericos-%d{dd-MM-yyyy}-%i.log.gz
+			C:\\bdevlaboratorio\\log\\genericos-%d{dd-MM-yyyy}-%i.log.gz
 		</Property>
 	</Properties>
 

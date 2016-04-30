@@ -36,7 +36,7 @@ public class BDev {
 		InputStream inputStream = null;
 		try {
 			Properties properties = new Properties();
-			inputStream = new FileInputStream("/Users/rodrigo/git/BDevLaboratorio/config/laboratorio.properties");
+			inputStream = new FileInputStream("C:\\bdevlaboratorio\\config\\laboratorio.properties");
 			properties.load(inputStream);
 			String propiedad = properties.getProperty(key);
 
@@ -65,7 +65,7 @@ public class BDev {
 		InputStream inputStream = null;
 		try {
 			Properties properties = new Properties();
-			inputStream = new FileInputStream("/Users/rodrigo/git/BDevLaboratorio/config/mensajes.properties");
+			inputStream = new FileInputStream("C:\\bdevlaboratorio\\config\\mensajes.properties");
 			properties.load(inputStream);
 			String mensaje = properties.getProperty(key);
 
