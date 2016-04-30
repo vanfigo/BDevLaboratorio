@@ -29,6 +29,7 @@ public class InstalacionTableView extends GenericoTableView<InstalacionBean> {
 
 	private TableColumn<InstalacionBean, String> tcEquipo;
 	private TableColumn<InstalacionBean, String> tcConsumible;
+	private TableColumn<InstalacionBean, String> tcSerie;
 	private TableColumn<InstalacionBean, String> tcUbicacion;
 	private TableColumn<InstalacionBean, Integer> tcCaducidad;
 	private InstalacionFechaCaducidadColumn tcFechaCaducidad;
@@ -37,11 +38,13 @@ public class InstalacionTableView extends GenericoTableView<InstalacionBean> {
 		viewModel = new InstalacionViewModel();
 
 		tcEquipo = new TableColumn<>("Equipo");
-		estilizarColumna(tcEquipo, "nombreEquipo", 0.2);
+		estilizarColumna(tcEquipo, "nombreEquipo", 0.15);
 		tcConsumible = new TableColumn<>("Consumible");
-		estilizarColumna(tcConsumible, "nombreConsumible", 0.2);
+		estilizarColumna(tcConsumible, "nombreConsumible", 0.15);
+		tcSerie = new TableColumn<>("Serie");
+		estilizarColumna(tcSerie, "serie", 0.15);
 		tcUbicacion = new TableColumn<>("Ubicacion");
-		estilizarColumna(tcUbicacion, "nombreUbicacion", 0.2);
+		estilizarColumna(tcUbicacion, "nombreUbicacion", 0.15);
 		tcCaducidad = new TableColumn<>("Caducidad");
 		estilizarColumna(tcCaducidad, "caducidad", 0.2);
 		tcFechaCaducidad = new InstalacionFechaCaducidadColumn("Fecha Caducidad");

@@ -60,18 +60,18 @@ public class InstalacionController extends ModuloController {
 			}
 		});
 
-//		view.addEventHandler(ModuloEvent.EDITAR, new EventHandler<ModuloEvent>() {
-//
-//			@Override
-//			public void handle(ModuloEvent event) {
-//				InstalacionBean instalacionBean = view.getSeleccionado();
-//				if (instalacionBean == null) {
-//					BDevMain.mostrarMensaje(BDev.getMensaje("instalaciones.seleccionar.editar"));
-//				} else {
-//					view.mostrarMensajeProducto(instalacionBean);
-//				}
-//			}
-//		});
+		view.addEventHandler(ModuloEvent.EDITAR, new EventHandler<ModuloEvent>() {
+
+			@Override
+			public void handle(ModuloEvent event) {
+				InstalacionBean instalacionBean = view.getSeleccionado();
+				if (instalacionBean == null) {
+					BDevMain.mostrarMensaje(BDev.getMensaje("instalaciones.seleccionar.editar"));
+				} else {
+					view.mostrarMensajeEditarProducto(instalacionBean);
+				}
+			}
+		});
 
 		view.addEventHandler(ModuloEvent.ELIMINAR, new EventHandler<ModuloEvent>() {
 

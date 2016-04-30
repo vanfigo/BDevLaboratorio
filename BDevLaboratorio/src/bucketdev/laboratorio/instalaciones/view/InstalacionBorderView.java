@@ -9,6 +9,7 @@ import bucketdev.laboratorio.bean.InstalacionBean;
 import bucketdev.laboratorio.bean.InstalacionFiltroBean;
 import bucketdev.laboratorio.bean.ModuloBean;
 import bucketdev.laboratorio.instalaciones.event.InstalacionEvent;
+import bucketdev.laboratorio.instalaciones.view.pane.InstalacionEditarGridPane;
 import bucketdev.laboratorio.instalaciones.view.pane.InstalacionFiltroGridPane;
 import bucketdev.laboratorio.instalaciones.view.pane.InstalacionGridPane;
 import bucketdev.laboratorio.instalaciones.view.pane.InstalacionRenovarGridPane;
@@ -33,8 +34,10 @@ public class InstalacionBorderView extends ModuloBorderView {
 	
 	private InstalacionMensajePopUp mensajeInstalacion;
 	private InstalacionRenovarMensajePopUp mensajeRenovarInstalacion;
+	private InstalacionEditarMensajePopUp mensajeEditarInstalacion;
 	private InstalacionGridPane instalacionGridPane;
 	private InstalacionRenovarGridPane instalacionRenovarGridPane;
+	private InstalacionEditarGridPane instalacionEditarGridPane;
 	
 	private Button btRenovar;
 	private Button btExportarExcel;
@@ -95,6 +98,29 @@ public class InstalacionBorderView extends ModuloBorderView {
 		});
 		
 		mensajeInstalacion.setOnHidden(new EventHandler<WindowEvent>() {
+			
+			@Override
+			public void handle(WindowEvent event) {
+				tableView.cargar();
+			}
+		});
+	}
+	
+	public void mostrarMensajeEditarProducto(InstalacionBean _instalacionBean){
+		instalacionEditarGridPane = new InstalacionEditarGridPane(_instalacionBean);
+		mensajeEditarInstalacion = new InstalacionEditarMensajePopUp(instalacionEditarGridPane);
+		
+		mensajeEditarInstalacion.show();
+		
+		mensajeEditarInstalacion.addEventHandler(InstalacionEvent.ACTUALIZAR_INSTALACION, new EventHandler<InstalacionEvent>() {
+
+			@Override
+			public void handle(InstalacionEvent event) {
+				fireEvent(event);
+			}
+		});
+		
+		mensajeEditarInstalacion.setOnHidden(new EventHandler<WindowEvent>() {
 			
 			@Override
 			public void handle(WindowEvent event) {

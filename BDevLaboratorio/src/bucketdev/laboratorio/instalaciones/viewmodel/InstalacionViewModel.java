@@ -27,7 +27,7 @@ public class InstalacionViewModel {
 			StringBuilder sql = new StringBuilder("SELECT cu.id, cu.consumible_id, c.nombre AS consumible_nombre, ")
 					.append("c.equipo_id, e.nombre AS equipo_nombre, cu.ubicacion_id, c.clave AS consumible_clave, ")
 					.append("u.nombre AS ubicacion_nombre, cu.caducidad, cu.fecha_creacion, c.caducidad AS consumible_caducidad, ")
-					.append("cu.estatus_id, es.nombre AS estatus_nombre, e.clave AS equipo_clave ")
+					.append("cu.estatus_id, es.nombre AS estatus_nombre, e.clave AS equipo_clave, cu.serie ")
 					.append("FROM consumibles_ubicaciones cu ")
 					.append("JOIN estatus es ON es.id = cu.estatus_id ")
 					.append("JOIN consumibles c ON c.id = cu.consumible_id AND c.activo = 1 ")
@@ -58,6 +58,7 @@ public class InstalacionViewModel {
 				InstalacionBean instalacionBean = new InstalacionBean();
 
 				instalacionBean.setId(rs.getInt("id"));
+				instalacionBean.setSerie(rs.getString("serie"));
 				instalacionBean.setCaducidad(rs.getInt("caducidad"));
 				instalacionBean.setFechaCaducidad(rs.getTimestamp("fecha_creacion"));
 				instalacionBean.setTipoEstatus(BDevTipoEstatus.getTipoEstatusByID(rs.getInt("estatus_id")));
@@ -121,14 +122,11 @@ public class InstalacionViewModel {
 				pstmt.setInt(2, BDev.getSesionBean().getUsuarioBean().getId());
 				pstmt.setInt(3, _instalacionBean.getConsumibleBean().getEquipoBean().getId());
 			} else {
-				sql = new StringBuilder("UPDATE consumibles_ubicaciones SET consumible_id = ?, ubicacion_id = ?, ")
-						.append("caducidad = ?, usuario_modificacion = ? WHERE id = ?");
+				sql = new StringBuilder("UPDATE consumibles_ubicaciones SET serie = ?, usuario_modificacion = ? WHERE id = ?");
 				pstmt = con.prepareStatement(sql.toString());
-				pstmt.setInt(1, _instalacionBean.getConsumibleBean().getId());
-				pstmt.setInt(2, _instalacionBean.getUbicacionBean().getId());
-				pstmt.setInt(3, _instalacionBean.getCaducidad());
-				pstmt.setInt(4, BDev.getSesionBean().getUsuarioBean().getId());
-				pstmt.setInt(5, _instalacionBean.getId());
+				pstmt.setString(1, _instalacionBean.getSerie());
+				pstmt.setInt(2, BDev.getSesionBean().getUsuarioBean().getId());
+				pstmt.setInt(3, _instalacionBean.getId());
 			}
 
 			if (pstmt.executeUpdate() == 0) {

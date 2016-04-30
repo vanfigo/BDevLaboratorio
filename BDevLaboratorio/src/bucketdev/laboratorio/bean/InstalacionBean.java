@@ -16,6 +16,7 @@ public @Data class InstalacionBean {
 	private int caducidad;
 	private Date fechaCaducidad;
 	private IntegerProperty diasCaducidad;
+	private String serie;
 	
 	public InstalacionBean() {
 		diasCaducidad = new SimpleIntegerProperty(this, "diasCaducidad", 5);
