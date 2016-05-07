@@ -27,9 +27,10 @@ public class InstalacionTableView extends GenericoTableView<InstalacionBean> {
 	private List<InstalacionBean> listaProductos;
 	private InstalacionFiltroBean filtroBean;
 
+	private TableColumn<InstalacionBean, String> tcEquipoClave;
 	private TableColumn<InstalacionBean, String> tcEquipo;
+	private TableColumn<InstalacionBean, String> tcConsumibleClave;
 	private TableColumn<InstalacionBean, String> tcConsumible;
-	private TableColumn<InstalacionBean, String> tcSerie;
 	private TableColumn<InstalacionBean, String> tcUbicacion;
 	private TableColumn<InstalacionBean, Integer> tcCaducidad;
 	private InstalacionFechaCaducidadColumn tcFechaCaducidad;
@@ -37,18 +38,20 @@ public class InstalacionTableView extends GenericoTableView<InstalacionBean> {
 	public InstalacionTableView() {
 		viewModel = new InstalacionViewModel();
 
+		tcEquipoClave = new TableColumn<>("Clave Equipo");
+		estilizarColumna(tcEquipoClave, "claveEquipo", 0.12);
 		tcEquipo = new TableColumn<>("Equipo");
 		estilizarColumna(tcEquipo, "nombreEquipo", 0.15);
+		tcConsumibleClave = new TableColumn<>("Clave Consumible");
+		estilizarColumna(tcConsumibleClave, "claveConsumible", 0.12);
 		tcConsumible = new TableColumn<>("Consumible");
 		estilizarColumna(tcConsumible, "nombreConsumible", 0.15);
-		tcSerie = new TableColumn<>("Serie");
-		estilizarColumna(tcSerie, "serie", 0.15);
 		tcUbicacion = new TableColumn<>("Ubicacion");
 		estilizarColumna(tcUbicacion, "nombreUbicacion", 0.15);
 		tcCaducidad = new TableColumn<>("Caducidad");
-		estilizarColumna(tcCaducidad, "caducidad", 0.2);
+		estilizarColumna(tcCaducidad, "caducidad", 0.1);
 		tcFechaCaducidad = new InstalacionFechaCaducidadColumn("Fecha Caducidad");
-		estilizarColumna(tcFechaCaducidad, "diasCaducidad", 0.19);
+		estilizarColumna(tcFechaCaducidad, "diasCaducidad", 0.2);
 	}
 
 	@Override

@@ -37,8 +37,16 @@ public @Data class InstalacionBean {
 		return diasCaducidad;
 	}
 	
+	public String getClaveConsumible() {
+		return consumibleBean == null ? "" : consumibleBean.getClave();
+	}
+	
 	public String getNombreConsumible() {
 		return consumibleBean == null ? "" : consumibleBean.getNombre();
+	}
+	
+	public String getClaveEquipo() {
+		return consumibleBean == null ? "" : consumibleBean.getClaveEquipo();
 	}
 	
 	public String getNombreEquipo() {

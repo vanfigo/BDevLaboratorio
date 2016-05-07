@@ -14,6 +14,10 @@ public @Data class ConsumibleBean {
 		return nombre;
 	}
 	
+	public String getClaveEquipo() {
+		return equipoBean == null ? "" : equipoBean.getClave();
+	}
+	
 	public String getNombreEquipo() {
 		return equipoBean == null ? "" : equipoBean.getNombre();
 	}
